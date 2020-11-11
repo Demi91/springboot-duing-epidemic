@@ -39,7 +39,7 @@ springboot的技术整合
 
 
 
-#### （一）获取数据
+## （一）获取数据
 
 爬取方式分析：
 
@@ -83,7 +83,7 @@ https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5&callback=jQuery351088072
 
 
 
-#### （二）解析数据
+## （二）解析数据
 
 json数据   -》   自定义的格式
 
@@ -109,4 +109,60 @@ JSON = JavaScript  Object Notation    （JavaScript的对象表示法）
 将对象转成json字符串  toJson(Object obj)
 
 将json字符串转成对象  fromJson(String jsonStr, T.class)
+
+
+
+
+
+分析丁香医生网站的数据
+
+https://ncov.dxy.cn/ncovh5/view/pneumonia
+
+返回的数据格式是html页面
+
+
+
+Jsoup  —  Java的html解析器
+
+
+
+Document  doc = Jsoup.parse(htmlStr);
+
+Document  doc1 = Jsoup.connect(urlStr).get();
+
+提供了一种查找方式   能够快速定位到某个标签
+
+
+
+Ducument由Element元素构成
+
+doc.getElementById("content")
+
+doc.getElementsByTag("a")
+
+
+
+doc.select("a[href]")
+
+doc.select("img[src$=.png]")
+
+
+
+addClass();
+removeAttr();
+val("");
+
+val("");
+
+
+
+优点：
+1）从一个URL 解析出Html , 内嵌了http请求过程
+2）使用DOM 或 CSS选择器来查找、取出数据
+3）可以增删html的元素、属性、文本等。
+
+
+
+数据源备份
+
 
