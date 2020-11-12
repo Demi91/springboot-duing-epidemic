@@ -166,3 +166,22 @@ val("");
 数据源备份
 
 
+
+
+
+转为实时数据
+
+如何用java模拟http请求？
+
+
+
+使用HttpURLConnection (原生的)    HttpClient的jar包是最常用的
+
+
+
+
+
+
+
+
+

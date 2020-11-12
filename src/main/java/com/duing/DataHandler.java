@@ -1,42 +1,59 @@
 package com.duing;
 
 import com.duing.bean.DataBean;
+import com.duing.util.HttpConnUtil;
 import com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
-public class JsonTest {
+public class DataHandler {
 
+    public static void main(String[] args) {
+        getData();
+    }
 
-    public static void main(String[] args) throws Exception {
+    public static String urlStr = "https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5";
+
+    public static List<DataBean> getData() {
+//        StringBuilder builder = new StringBuilder();
+//        try {
 //        String  tmpJson = "{\"hello\":\"world\"}";
 //
 //        Gson gson = new Gson();
 //        Map map = gson.fromJson(tmpJson,Map.class);
 //        System.out.println(map);
 
-        // 读取tmp.json
-        FileReader fr = new FileReader("tmp.json");
-        char[] cBuf = new char[1024];
+//            // 读取tmp.json
+//            FileReader fr = new FileReader("tmp.json");
+//            char[] cBuf = new char[1024];
+//
+//            int cRead = 0;
+//
+//            while ((cRead = fr.read(cBuf)) > 0) {
+//                builder.append(new String(cBuf, 0, cRead));
+//            }
+//            fr.close();
+//        } catch (Exception e) {
+//
+//        }
 
-        int cRead = 0;
-        StringBuilder builder = new StringBuilder();
-        while ((cRead = fr.read(cBuf)) > 0) {
-            builder.append(new String(cBuf, 0, cRead));
-        }
-        fr.close();
 
+        String str = HttpConnUtil.doGet(urlStr);
 
 //        System.out.println(builder.toString());
         // 层层读取  找到要显示的数据  存到ArrayList之中
 
         Gson gson = new Gson();
-        Map map = gson.fromJson(builder.toString(), Map.class);
+        Map map = gson.fromJson(str, Map.class);
 
-        ArrayList areaList = (ArrayList) map.get("areaTree");
+        String subStr = (String) map.get("data");
+        Map subMap = gson.fromJson(subStr, Map.class);
+
+        ArrayList areaList = (ArrayList) subMap.get("areaTree");
 
         Map dataMap = (Map) areaList.get(0);
 
@@ -62,7 +79,7 @@ public class JsonTest {
 
         }
 
-        System.out.println(result);
-
+//        System.out.println(result);
+        return result;
     }
 }
