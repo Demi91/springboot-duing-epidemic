@@ -17,6 +17,8 @@ public class DataController {
 
     @GetMapping("/")
     public String list(Model model) {
+        // 此时使用的list 是mybatis plus提供的
+        // 查询全表数据
         List<DataBean> dataList = dataService.list();
         model.addAttribute("dataList", dataList);
         return "list";
