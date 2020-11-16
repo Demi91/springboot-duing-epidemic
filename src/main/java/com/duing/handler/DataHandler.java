@@ -1,4 +1,4 @@
-package com.duing;
+package com.duing.handler;
 
 import com.duing.bean.DataBean;
 import com.duing.service.DataService;
@@ -46,7 +46,7 @@ public class DataHandler {
 
     //    @Scheduled(fixedDelay = 10000)
 //    @Scheduled(fixedRate = 10000)
-    @Scheduled(cron = "0 0/1 * * * ? ")
+//    @Scheduled(cron = "0 0/1 * * * ? ")
     public void updateData() {
         System.out.println("更新数据,当前时间" + dateFormat.format(new Date()));
         List<DataBean> dataBeans = getData();
