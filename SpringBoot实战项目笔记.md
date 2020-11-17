@@ -269,3 +269,7 @@ cron表达式
 下周的内容：
 
 数据可视化 echarts、 国际化、 邮件、登录、AOP
+
+
+地图的参考实例
+https://echarts.apache.org/examples/zh/editor.html?c=doc-example/map-example

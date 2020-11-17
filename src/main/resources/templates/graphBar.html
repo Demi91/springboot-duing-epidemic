@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>境外输入省市柱状图</title>
+    <script type="text/javascript" src="echarts/echarts.min.js"></script>
+</head>
+<body>
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 600px;height:400px;"></div>
+
+<!--要接收服务端的数据  并且使用thymeleaf-->
+<script th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var nameStr = [[${nameList}]];
+    var fromAbroadStr = [[${fromAbroadList}]];
+
+    option = {
+        title: {
+            text: '境外输入省市TOP10'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        // legend: {
+        //     data:['累计确诊','累计治愈','累计死亡']
+        // },
+        // 坐标系的x轴数据
+        xAxis: {
+            data: JSON.parse(nameStr)
+        },
+        // 坐标系的y轴数据类型
+        yAxis: {
+            type: 'value'
+        },
+        // 坐标系的y轴数据
+        series: [{
+            name: '境外输入',
+            data: JSON.parse(fromAbroadStr),
+            type: 'bar',
+            barWidth: '60%'
+        }]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+
+</body>
+</html>
