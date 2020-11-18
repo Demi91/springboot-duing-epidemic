@@ -264,12 +264,40 @@ cron表达式
 
 
 
-
-
 下周的内容：
 
 数据可视化 echarts、 国际化、 邮件、登录、AOP
 
 
+
+## Day 6 & Day 7
+
+数据可视化 echarts
+
+1）官网 -  Demo示例
+2）确认数据格式
+3）确认数据来源，进行格式转化
+
+编写代码的思路：
+
+1）比如折线图  graph.html 、柱状图  graphBar.html 、地图 map.html的实例
+
 地图的参考实例
 https://echarts.apache.org/examples/zh/editor.html?c=doc-example/map-example
+
+2）分析腾讯新闻的数据来源     GraphHandler
+3）编写请求入口，返回渲染页面  GraphController ->  GraphHandler
+         使用的js资源  放到了static文件夹下     动态页面放入templates文件夹下
+
+
+
+作业： 把所有图像和列表  整合到一个界面中   越接近腾讯新闻越好
+
+
+
+## Day 8 
+
+国际化 （切换多语种）
+
+
+

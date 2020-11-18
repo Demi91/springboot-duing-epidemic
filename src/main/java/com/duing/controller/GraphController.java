@@ -1,9 +1,13 @@
 package com.duing.controller;
 
+import com.duing.bean.DataBean;
 import com.duing.bean.GraphBarBean;
 import com.duing.bean.GraphBean;
+import com.duing.bean.MapBean;
 import com.duing.handler.GraphHandler;
+import com.duing.service.DataService;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,9 @@ import java.util.List;
 
 @Controller
 public class GraphController {
+
+    @Autowired
+    private DataService dataService;
 
     @GetMapping("/graph")
     public String graph(Model model) {
@@ -57,5 +64,29 @@ public class GraphController {
         model.addAttribute("nameList", new Gson().toJson(nameList));
         model.addAttribute("fromAbroadList", new Gson().toJson(fromAbroadList));
         return "graphBar";
+    }
+
+
+    @GetMapping("/map")
+    public String map(Model model) {
+        List<DataBean> list = dataService.list();
+
+        List<MapBean> result1 = new ArrayList<>();
+        List<MapBean> result2 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+
+            DataBean dataBean = list.get(i);
+            MapBean mapBean1 = new MapBean(dataBean.getName(),
+                    dataBean.getNowConfirm());
+            result1.add(mapBean1);
+
+            MapBean mapBean2 = new MapBean(dataBean.getName(),
+                    dataBean.getConfirm());
+            result2.add(mapBean2);
+        }
+
+        model.addAttribute("mapData1", new Gson().toJson(result1));
+        model.addAttribute("mapData2", new Gson().toJson(result2));
+        return "map";
     }
 }
