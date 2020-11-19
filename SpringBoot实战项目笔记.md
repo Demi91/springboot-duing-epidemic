@@ -299,5 +299,86 @@ https://echarts.apache.org/examples/zh/editor.html?c=doc-example/map-example
 
 国际化 （切换多语种）
 
+1）变换语种对应的文本，哪些要变化（配置文件配置）
+2）list.properties   声明key和value ，会默认显示出来，注意编码格式
+3）list_zh_CN.properties 和   list_en_US.properties，都存放到 i18n 文件夹下
+4）在application配置里，增加spring.messages.basename=i18n.list  
+      (list代表默认使用的文件名)
+5）改造html文件，原来的静态显示，增加动态渲染
+6）通过浏览器对语言的设置，进行网页中英文的切换
+      Chrome为例   【设置】-【高级】-【语言】  将英语（美国）指定
+      原理是，根据http请求中 Accept-Language参数的不同，进行的切换处理
+7）还可以增加中英文切换按钮，比如
+
+```
+<label>
+    <a class="btn btn-sm" th:href="@{/(lan='zh_CN')}">中文</a>
+    <a class="btn btn-sm" th:href="@{/(lan='en_US')}">英文</a>
+</label>
+```
+
+
+
+自定义处理器
+
+```
+public class MyLocaleResolver implements LocaleResolver {
+
+    @Override
+    public Locale resolveLocale(HttpServletRequest httpServletRequest) {
+        String lan = httpServletRequest.getParameter("lan");
+        Locale locale = Locale.getDefault();
+        if (!StringUtils.isEmpty(lan)) {
+            String[] split = lan.split("_");
+            locale = new Locale(split[0], split[1]);
+        }
+
+        return locale;
+    }
+
+    @Override
+    public void setLocale(HttpServletRequest httpServletRequest,
+                          HttpServletResponse httpServletResponse, Locale locale) {
+
+    }
+}
+```
+
+
+
+注入spring
+
+```
+@Configuration
+public class MyConfig {
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new MyLocaleResolver();
+    }
+}
+
+```
+
+
+
+## Day 9
+
+邮件处理的核心流程
+
+![image-20201119211503524](images/image-20201119211503524.png)
+
+
+
+
+
+以qq邮箱  发送邮件给  126邮箱为例：
+
+常用电子邮件协议， SMTP、POP3、IMAP
+
+SMTP = Simple Mail Transfer Protocol   简单邮件传输协议
+
+
+
 
 
