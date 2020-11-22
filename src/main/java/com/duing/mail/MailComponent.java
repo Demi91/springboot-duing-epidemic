@@ -23,6 +23,13 @@ public class MailComponent {
         message.setFrom("2491638831@qq.com");
 
         mailSender.send(message);
+
+
+//        MimeMessage
+//        MimeMessageHelper
+//        FileSystemResource
+
+        // 发送html格式的邮件  或者附件  可以使用的类和对象
     }
 
 }
